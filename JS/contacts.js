@@ -1,6 +1,6 @@
 const contacts = [
-    { name: "Zeyad Ahmed", phone: "01225351584" },
-    { name: "Zeyad Ahmed", phone: "01012544455" },
+    { name: "Zeyad Mansour", phone: "01225351584" },
+    { name: "Zeyad Mansour", phone: "01012544455" },
     { name: "Yousef Al Badawi", phone: "01094588416" }
 ];
 

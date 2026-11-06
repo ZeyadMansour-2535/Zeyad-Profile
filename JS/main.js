@@ -1,6 +1,7 @@
 const MEMORY_ACCESS_DURATION = 10 * 1000;
 const avatarLink = document.querySelector(".avatar-link");
 let holdTimer;
+let longPressTriggered = false;
 
 function resetAvatarHold() {
     clearTimeout(holdTimer);
@@ -9,11 +10,22 @@ function resetAvatarHold() {
 
 function startAvatarHold(event) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
-    event.preventDefault();
     resetAvatarHold();
+    longPressTriggered = false;
     holdTimer = setTimeout(() => {
+        longPressTriggered = true;
         window.location.href = "memories.html";
     }, MEMORY_ACCESS_DURATION);
+}
+
+function openProfileImage(event) {
+    if (longPressTriggered) {
+        event.preventDefault();
+        longPressTriggered = false;
+        return;
+    }
+
+    window.open("images/profile.jpeg", "_blank", "noopener,noreferrer");
 }
 
 avatarLink.addEventListener("pointerdown", startAvatarHold);
@@ -21,6 +33,7 @@ avatarLink.addEventListener("pointerup", resetAvatarHold);
 avatarLink.addEventListener("pointercancel", resetAvatarHold);
 avatarLink.addEventListener("pointerleave", resetAvatarHold);
 avatarLink.addEventListener("contextmenu", event => event.preventDefault());
+avatarLink.addEventListener("click", openProfileImage);
 
 function goBack() {
     const authenticatedAt = Number(sessionStorage.getItem("authenticatedAt") || 0);
